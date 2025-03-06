@@ -33,6 +33,7 @@ public class RecommenderImpl {
     @Autowired
     @Qualifier("CBF")
     private Filter filter;
+
     public String[] recommendMovies(String movie){
         System.out.println("Filter in use: "+ filter);
 
