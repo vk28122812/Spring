@@ -44,6 +44,11 @@ public class PlayerController {
         return playerService.patch(id, playerPatch);
     }
 
+    @PatchMapping("/players/{id}/titles")
+    public void updateTitles(@PathVariable int id, @RequestBody int titles){
+        playerService.updateTitles(id,titles);
+    }
+
     @DeleteMapping("/players/{id}")
     public String deletePlayer(@PathVariable int id){
         return playerService.deletePlayer(id);

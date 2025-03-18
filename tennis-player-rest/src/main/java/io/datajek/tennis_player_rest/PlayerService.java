@@ -1,5 +1,6 @@
 package io.datajek.tennis_player_rest;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -63,6 +64,12 @@ public class PlayerService {
 
         return playerRepository.save(player);
     }
+
+    @Transactional
+    public void updateTitles(int id, int titles){
+        playerRepository.updateTitles(id,titles);
+    }
+
 
     public  String deletePlayer(int id){
         Optional<Player> player = playerRepository.findById(id);
