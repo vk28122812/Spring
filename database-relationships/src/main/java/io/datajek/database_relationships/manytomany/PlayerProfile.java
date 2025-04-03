@@ -1,4 +1,4 @@
-package io.datajek.database_relationships.onetoone;
+package io.datajek.database_relationships.manytomany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

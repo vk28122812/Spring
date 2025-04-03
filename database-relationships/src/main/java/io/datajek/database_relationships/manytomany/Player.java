@@ -1,9 +1,13 @@
-package io.datajek.database_relationships.onetoone;
+package io.datajek.database_relationships.manytomany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+import java.util.ArrayList;
+import java.util.List;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
 public class Player {
 
@@ -13,8 +17,10 @@ public class Player {
 
     private String name;
 
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    private List<Registration> registrations = new ArrayList<>();
+
     @OneToOne(cascade = CascadeType.ALL, optional = true)
-    @JsonManagedReference
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private PlayerProfile playerProfile;
 
@@ -54,12 +60,26 @@ public class Player {
         this.playerProfile = playerProfile;
     }
 
+    public List<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
+    }
+
+    public void registerPlayer(Registration reg) {
+        registrations.add(reg);
+        reg.setPlayer(this);
+    }
+
     @Override
     public String toString() {
         return "Player[" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", playerProfile=" + playerProfile +
+                ", registrations=" + registrations +
                 ']';
     }
 
